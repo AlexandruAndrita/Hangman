@@ -23,7 +23,7 @@ Additonally, the implementation of the game does not allow repeated names. <br/>
 ![image](https://user-images.githubusercontent.com/92984942/219984660-99f25fdb-f783-41d0-bd93-ad755b56bc37.png)
 
 
-### Feature features
+### Future features
 
 - adding the account feature for the users along with: leaderboard and score
 - adding an admin mode where the admin could add new words or delete the redundant ones
