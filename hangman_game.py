@@ -7,6 +7,7 @@ import unpacking_methods
 import accounts
 
 def game(words):
+    os.system('cls')
     tries=6
     index=random.randint(0,len(words)-1)
 
