@@ -15,3 +15,8 @@ def isfloat(character):
         return True
     except ValueError:
         return False
+
+def username_exists(username,players):
+    if username in players:
+        return True
+    return False

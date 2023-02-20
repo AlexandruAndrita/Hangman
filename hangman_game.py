@@ -3,19 +3,8 @@ import random
 from time import sleep
 import displaying_methods
 import checking_methods
-
-
-def unpack_words(path):
-    words=[]
-    try:
-        with open(path,"r") as f:
-            words=f.readlines()
-        for i in range(len(words)):
-            if words[i][-1]=='\n':
-                words[i]=words[i][:-1]
-    except FileNotFoundError:
-        raise FileNotFoundError("File does not exist")
-    return words
+import unpacking_methods
+import accounts
 
 def game(words):
     tries=6
@@ -62,7 +51,8 @@ def game(words):
     else:
         print(f"\nYou have guessed the word '{word}' correctly.")
 
-def menu(words):
+def menu(words,players,file_name_players):
+    accounts.add_user(players)
 
     while True:
         displaying_methods.display_options()
@@ -76,9 +66,30 @@ def menu(words):
         try:
             option=int(option)
             if option == 1:
-                game(words)
-                exit(0)
+                while True:
+                    game(words)
+                    displaying_methods.play_another_round()
+                    option=input("Do you want to play another round: ")
+
+                    try:
+                        option=int(option)
+                        if option == 2:
+                            unpacking_methods.add_new_users(players,file_name_players)
+                            os.system('cls')
+                            print("You have exited the game")
+                            exit(0)
+                        elif option!=1:
+                            os.system('cls')
+                            print("The value introduced is not valid\n")
+                        else:
+                            os.system('cls')
+                            accounts.add_user(players)
+                    except ValueError:
+                        os.system('cls')
+                        print("The value introduced is not a number\n")
+
             elif option == 2:
+                unpacking_methods.add_new_users(players,file_name_players)
                 os.system('cls')
                 print("You have exited the game")
                 exit(0)
@@ -91,7 +102,9 @@ def menu(words):
 
 
 if __name__=='__main__':
-    file_name="words.txt"
-    words=unpack_words(file_name)
+    file_name_words="words.txt"
+    file_name_players="existing_users.txt"
+    players=unpacking_methods.unpack_users(file_name_players)
+    words=unpacking_methods.unpack_words(file_name_words)
     print("\n\t\tHANGMAN\n")
-    menu(words)
+    menu(words,players,file_name_players)
