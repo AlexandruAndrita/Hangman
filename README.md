@@ -25,6 +25,7 @@ Additonally, the implementation of the game does not allow repeated names. <br/>
 
 ### Future features
 
+- creating a GUI using the Tkinter module - :construction: In progress...
 - adding the account feature for the users along with: leaderboard and score
 - adding an admin mode where the admin could add new words or delete the redundant ones
 
