@@ -17,14 +17,12 @@ window.configure(bg="gray70")
 frame_title=Frame(window)
 label_title=Label(frame_title,text="The Hangman",justify=LEFT,font=('Arial',25),bg="gray70",fg="black")
 label_title.pack(side=LEFT)
-frame_title.pack(padx=1,pady=1)
+frame_title.pack(padx=1,pady=15)
 
 def character(c,word,word_user_solution,tries_label,word_label,win):
     global tries
 
     if tries==1:
-        #for wid in win.winfo_children():
-            #wid.destroy()
         win.destroy()
         verdict_window=Toplevel(window)
         verdict_window.geometry("450x450")
@@ -52,8 +50,6 @@ def character(c,word,word_user_solution,tries_label,word_label,win):
             result=result+c+"  "
             user_sol=user_sol+c
         if word==user_sol:
-            #for wid in win.winfo_children():
-                #wid.destroy()
             win.destroy()
             verdict_window=Toplevel(window)
             verdict_window.geometry("450x450")
@@ -158,19 +154,23 @@ def open_window_name(words,players,tries):
     win_name.configure(bg="gray70")
 
     name_label=Label(win_name,text="Player name: ",font=('Arial',11),bg="gray70",fg="black",highlightbackground="gray70")
-    name_label.pack(pady=5)
+    name_label.pack(pady=10)
 
     name_entry=Entry(win_name,validatecommand=lambda : checking_methods.username_exists(name_entry.get(),players,name_status),font=('Arial',11),bg="gray70",fg="black")
     name_entry.pack(pady=10)
 
     name_status=Label(win_name,text="Still waiting...",font=('Arial',11),fg="Red",bg="gray70")
-    name_status.pack(pady=15)
+    name_status.pack(pady=20)
 
-    validate_button=Button(win_name,text="Validate name",font=('Arial',13),command=lambda : checking_methods.validate_name(name_entry.get(),players,name_status,game_button),bg="gray70")
-    validate_button.pack(pady=45)
+    buttons_frame=Frame(win_name)
+    buttons_frame.configure(bg="gray70")
+    validate_button=Button(buttons_frame,text="Check availability",font=('Arial',13),command=lambda : checking_methods.validate_name(name_entry.get(),players,name_status,game_button),bg="gray70",width=16)
+    validate_button.pack()
 
-    game_button=Button(win_name,text="Play game",font=('Arial',13),state='disabled',command=lambda : open_window(words,players,tries,win_name,name_entry.get()),bg="gray70")
-    game_button.pack()
+    game_button=Button(buttons_frame,text="Play game",font=('Arial',13),state='disabled',command=lambda : open_window(words,players,tries,win_name,name_entry.get()),bg="gray70",width=16)
+    game_button.pack(pady=5)
+
+    buttons_frame.pack(pady=55)
 
 def open_window(words,players,tries,win_name,new_player_name):
     players.append(new_player_name)
@@ -210,13 +210,13 @@ def open_window(words,players,tries,win_name,new_player_name):
 
 
 frame_button=Frame(window,bg="gray70")
-button_start_game=Button(frame_button,text="Start game",font=('Arial',15),command=lambda: open_window_name(words,players,tries),bg="gray70",fg="black")
-button_start_game.pack(pady=100)
+button_start_game=Button(frame_button,text="Start game",font=('Arial',15),command=lambda: open_window_name(words,players,tries),bg="gray70",fg="black",width=10)
+button_start_game.pack(pady=5)
 
-button_quit_game=Button(frame_button,text="Quit game",font=('Arial',15),command=lambda : unpacking_methods.add_new_users(players,file_name_players,window),bg="gray70",fg="black")
-button_quit_game.pack()
+button_quit_game=Button(frame_button,text="Quit game",font=('Arial',15),command=lambda : unpacking_methods.add_new_users(players,file_name_players,window),bg="gray70",fg="black",width=10)
+button_quit_game.pack(pady=5)
 
-frame_button.pack(padx=10,pady=10)
+frame_button.pack(padx=10,pady=140)
 
 if __name__=='__main__':
     file_name_words = "words.txt"
