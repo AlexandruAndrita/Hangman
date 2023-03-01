@@ -20,10 +20,11 @@ def unpack_words(path):
         raise FileNotFoundError(f"File '{path}' does not exist")
     return words
 
-def add_new_users(players,file_name_players):
+def add_new_users(players,file_name_players,window):
     try:
         with open(file_name_players,"w") as f:
             for name in players:
                 f.write(name+"\n")
+        window.quit()
     except FileNotFoundError:
         raise FileNotFoundError(f"File '{file_name_players}' does not exist")

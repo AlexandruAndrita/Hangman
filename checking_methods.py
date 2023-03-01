@@ -1,22 +1,21 @@
-def check_empty_places(word_user_solution):
-    for c in word_user_solution:
-        if c=='_':
-            return True
-    return False
-
-def letter_used_multiple_times(used_letters,letter):
-    if letter in used_letters:
+def username_exists(username,players,name_status):
+    if username in players:
+        name_status.configure(text="Name not available")
         return True
-    return False
-
-def isfloat(character):
-    try:
-        float(character)
-        return True
-    except ValueError:
+    else:
+        name_status.configure(text="Name available")
         return False
 
-def username_exists(username,players):
-    if username in players:
+def validate_name(username,players,name_status,game_button):
+    if len(username)==0:
+        name_status.configure(text="Still waiting...")
+        game_button.configure(state='disabled')
+        return False
+    elif username in players:
+        name_status.configure(text="Name not available")
+        game_button.configure(state='disabled')
+        return False
+    else:
+        name_status.configure(text="Name available")
+        game_button.configure(state='active')
         return True
-    return False
